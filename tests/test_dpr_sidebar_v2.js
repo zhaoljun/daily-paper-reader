@@ -411,6 +411,32 @@ function testSidebarPaperVisualStateCssContract() {
   assert.ok(/\.dpr-sidebar-paper-status-bad\.is-active\s*{[^}]*background:\s*#ef4444/i.test(css));
 }
 
+function testSidebarStickyHierarchyCssContract() {
+  const css = fs.readFileSync('app/app.css', 'utf8');
+  const rootRule = cssRule(css, '#dpr-sidebar-v2');
+  assert.ok(/--dpr-sidebar-sticky-panel-top:\s*0px/i.test(rootRule));
+  assert.ok(/--dpr-sidebar-sticky-axis-top:\s*34px/i.test(rootRule));
+  assert.ok(/--dpr-sidebar-sticky-section-top:\s*70px/i.test(rootRule));
+
+  const panelHeaderRule = cssRule(css, '.dpr-sidebar-panel.is-expanded > .dpr-sidebar-panel-header');
+  assert.ok(/position:\s*sticky/i.test(panelHeaderRule));
+  assert.ok(/top:\s*var\(--dpr-sidebar-sticky-panel-top\)/i.test(panelHeaderRule));
+  assert.ok(/z-index:\s*18/i.test(panelHeaderRule));
+  assert.ok(/background:\s*#ffffff/i.test(panelHeaderRule));
+
+  const axisRowRule = cssRule(css, '.dpr-sidebar-panel.is-expanded > .dpr-sidebar-panel-content > .dpr-sidebar-axis-row');
+  assert.ok(/position:\s*sticky/i.test(axisRowRule));
+  assert.ok(/top:\s*var\(--dpr-sidebar-sticky-axis-top\)/i.test(axisRowRule));
+  assert.ok(/z-index:\s*17/i.test(axisRowRule));
+  assert.ok(/background:\s*#ffffff/i.test(axisRowRule));
+
+  const sectionHeaderRule = cssRule(css, '.dpr-sidebar-panel.is-expanded .dpr-sidebar-axis-section-header');
+  assert.ok(/position:\s*sticky/i.test(sectionHeaderRule));
+  assert.ok(/top:\s*var\(--dpr-sidebar-sticky-section-top\)/i.test(sectionHeaderRule));
+  assert.ok(/z-index:\s*16/i.test(sectionHeaderRule));
+  assert.ok(/background:\s*#ffffff/i.test(sectionHeaderRule));
+}
+
 function testRenderBodyPutsConferenceAboveDaily() {
   const sidebar = loadSidebarForTest('#/conference/neurips-2024/paper-c');
   const tools = sidebar.__test;
@@ -587,6 +613,7 @@ testSidebarSortsByNewestTimeFirst();
 testSidebarUtilityHelpers();
 testEvidenceCssIsPersistent();
 testSidebarPaperVisualStateCssContract();
+testSidebarStickyHierarchyCssContract();
 testRenderBodyPutsConferenceAboveDaily();
 testAxisSectionsAreExpandable();
 testPanelCountsUseFullModel();

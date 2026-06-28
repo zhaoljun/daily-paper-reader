@@ -6758,6 +6758,9 @@ body.dpr-sidebar-v2 .content {
 
 /* root 容器 */
 #dpr-sidebar-v2 {
+  --dpr-sidebar-sticky-panel-top: 0px;
+  --dpr-sidebar-sticky-axis-top: 34px;
+  --dpr-sidebar-sticky-section-top: 70px;
   position: fixed;
   inset: 0 auto 0 0;
   width: var(--dpr-sidebar-width, 280px);
@@ -7015,6 +7018,13 @@ body.dpr-sidebar-resizing {
 .dpr-sidebar-panel-header:hover {
   background: #f1f5f9;
 }
+.dpr-sidebar-panel.is-expanded > .dpr-sidebar-panel-header {
+  position: sticky;
+  top: var(--dpr-sidebar-sticky-panel-top);
+  z-index: 18;
+  background: #ffffff;
+  box-shadow: 0 1px 0 #f1f5f9;
+}
 .dpr-sidebar-panel-title {
   flex: 1;
   font-weight: 650;
@@ -7035,6 +7045,13 @@ body.dpr-sidebar-resizing {
   align-items: center;
   gap: 6px;
   padding: 4px 8px 6px 14px;
+}
+.dpr-sidebar-panel.is-expanded > .dpr-sidebar-panel-content > .dpr-sidebar-axis-row {
+  position: sticky;
+  top: var(--dpr-sidebar-sticky-axis-top);
+  z-index: 17;
+  background: #ffffff;
+  box-shadow: 0 1px 0 #f1f5f9;
 }
 .dpr-sidebar-axis-toggle {
   flex: 0 0 auto;
@@ -7134,6 +7151,13 @@ body.dpr-sidebar-resizing {
 }
 .dpr-sidebar-axis-section-header:hover {
   background: #f8fafc;
+}
+.dpr-sidebar-panel.is-expanded .dpr-sidebar-axis-section-header {
+  position: sticky;
+  top: var(--dpr-sidebar-sticky-section-top);
+  z-index: 16;
+  background: #ffffff;
+  box-shadow: 0 1px 0 #f8fafc;
 }
 .dpr-sidebar-axis-section-label {
   position: relative;
